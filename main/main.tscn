@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ysccx76orqu7"]
+
+[ext_resource type="PackedScene" uid="uid://vhi1w0o3lwcj" path="res://map/map.tscn" id="1_xrlys"]
+[ext_resource type="PackedScene" uid="uid://drgv17cmondo8" path="res://player/player.tscn" id="2_lfwc8"]
+[ext_resource type="PackedScene" uid="uid://crdmcnrdlujij" path="res://hud/hud.tscn" id="3_iovc4"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Map" parent="." instance=ExtResource("1_xrlys")]
+
+[node name="Player" parent="." instance=ExtResource("2_lfwc8")]
+z_index = 1
+position = Vector2(80, -72)
+
+[node name="HUD" parent="." instance=ExtResource("3_iovc4")]

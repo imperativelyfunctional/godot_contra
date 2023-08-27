@@ -1,0 +1,385 @@
+[gd_scene load_steps=37 format=3 uid="uid://drgv17cmondo8"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_uvun6"]
+[ext_resource type="Texture2D" uid="uid://snv1go3q7ilr" path="res://assets/audio/bill.png" id="2_o61x6"]
+[ext_resource type="Script" path="res://player/timer.gd" id="3_nwc4f"]
+[ext_resource type="AudioStream" uid="uid://cqxi57veke2tb" path="res://assets/audio/gunshot.ogg" id="4_b3khw"]
+[ext_resource type="AudioStream" uid="uid://cvjyo7nu78s72" path="res://assets/audio/death.ogg" id="5_trvud"]
+[ext_resource type="AudioStream" uid="uid://b1jhgqbuinams" path="res://assets/audio/end.ogg" id="6_oelbm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0v7ri"]
+size = Vector2(32, 3)
+
+[sub_resource type="Animation" id="Animation_3ah4c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_nm6ag"]
+resource_name = "dead"
+length = 0.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [30, 31, 32]
+}
+
+[sub_resource type="Animation" id="Animation_4u4l6"]
+resource_name = "down"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_iqdfu"]
+resource_name = "down_in_water"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_83hl2"]
+resource_name = "down_walking"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_srxcl"]
+resource_name = "jumping"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_eqtnc"]
+resource_name = "standing"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_jpjdl"]
+resource_name = "standing_in_water"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [24, 33]
+}
+
+[sub_resource type="Animation" id="Animation_bdsow"]
+resource_name = "up_shooting"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [23]
+}
+
+[sub_resource type="Animation" id="Animation_hj3f4"]
+resource_name = "up_shooting_in_water"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [26, 35]
+}
+
+[sub_resource type="Animation" id="Animation_676te"]
+resource_name = "up_walking"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_xiuqo"]
+resource_name = "up_walking_in_water"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [27, 36]
+}
+
+[sub_resource type="Animation" id="Animation_5krge"]
+resource_name = "walking"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_1dj4c"]
+resource_name = "walking_in_water"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 34]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mtni4"]
+_data = {
+"RESET": SubResource("Animation_3ah4c"),
+"dead": SubResource("Animation_nm6ag"),
+"down": SubResource("Animation_4u4l6"),
+"down_in_water": SubResource("Animation_iqdfu"),
+"down_walking": SubResource("Animation_83hl2"),
+"jumping": SubResource("Animation_srxcl"),
+"standing": SubResource("Animation_eqtnc"),
+"standing_in_water": SubResource("Animation_jpjdl"),
+"up_shooting": SubResource("Animation_bdsow"),
+"up_shooting_in_water": SubResource("Animation_hj3f4"),
+"up_walking": SubResource("Animation_676te"),
+"up_walking_in_water": SubResource("Animation_xiuqo"),
+"walking": SubResource("Animation_5krge"),
+"walking_in_water": SubResource("Animation_1dj4c")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sru1f"]
+animation = &"dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_au6ad"]
+animation = &"down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s0nhj"]
+animation = &"down_in_water"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ldowo"]
+animation = &"down_walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f0n65"]
+animation = &"jumping"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bayqq"]
+animation = &"standing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6rboi"]
+animation = &"standing_in_water"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nivpc"]
+animation = &"up_shooting"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4fo2y"]
+animation = &"up_shooting_in_water"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ov3ue"]
+animation = &"up_walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2hpyc"]
+animation = &"up_walking_in_water"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_utxie"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xd6am"]
+animation = &"walking_in_water"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3osie"]
+states/dead/node = SubResource("AnimationNodeAnimation_sru1f")
+states/dead/position = Vector2(851.255, 162.398)
+states/down/node = SubResource("AnimationNodeAnimation_au6ad")
+states/down/position = Vector2(684.83, 115.168)
+states/down_in_water/node = SubResource("AnimationNodeAnimation_s0nhj")
+states/down_in_water/position = Vector2(1048.65, 94.88)
+states/down_walking/node = SubResource("AnimationNodeAnimation_ldowo")
+states/down_walking/position = Vector2(540.47, 96.625)
+states/jumping/node = SubResource("AnimationNodeAnimation_f0n65")
+states/jumping/position = Vector2(729.645, 68.88)
+states/standing/node = SubResource("AnimationNodeAnimation_bayqq")
+states/standing/position = Vector2(574.645, 163.88)
+states/standing_in_water/node = SubResource("AnimationNodeAnimation_6rboi")
+states/standing_in_water/position = Vector2(1260.04, 102.88)
+states/up_shooting/node = SubResource("AnimationNodeAnimation_nivpc")
+states/up_shooting/position = Vector2(725.645, 198.88)
+states/up_shooting_in_water/node = SubResource("AnimationNodeAnimation_4fo2y")
+states/up_shooting_in_water/position = Vector2(1479.26, 90.3975)
+states/up_walking/node = SubResource("AnimationNodeAnimation_ov3ue")
+states/up_walking/position = Vector2(407.47, 168.625)
+states/up_walking_in_water/node = SubResource("AnimationNodeAnimation_2hpyc")
+states/up_walking_in_water/position = Vector2(1040.04, 200.88)
+states/walking/node = SubResource("AnimationNodeAnimation_utxie")
+states/walking/position = Vector2(418, 94)
+states/walking_in_water/node = SubResource("AnimationNodeAnimation_xd6am")
+states/walking_in_water/position = Vector2(1360.04, 163.88)
+graph_offset = Vector2(-379.585, 10.5975)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_uvun6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 31.5)
+shape = SubResource("RectangleShape2D_0v7ri")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_o61x6")
+hframes = 6
+vframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_mtni4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_3osie")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 6696
+limit_bottom = 0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+script = ExtResource("3_nwc4f")
+
+[node name="GunShot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_b3khw")
+volume_db = -40.0
+max_polyphony = 10
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_trvud")
+volume_db = -40.0
+
+[node name="End" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_oelbm")
+volume_db = -40.0
+
+[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]

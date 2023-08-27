@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://crdmcnrdlujij"]
+
+[ext_resource type="Texture2D" uid="uid://1f6qv2xqnsn0" path="res://assets/contra_logo.png" id="1_vngp0"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ContraLogo" type="Sprite2D" parent="."]
+position = Vector2(430, 30)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_vngp0")
